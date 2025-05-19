@@ -8,279 +8,138 @@ description: >-
 
 About
 
-MoneyGuard BLC Core is a NestJS-based backend service that interfaces with blockchain smart contracts to manage IOU records. It provides a secure and transparent way to create, update, and manage financial obligations between parties using blockchain technology.
+MoneyGuard Smart Contract is composed using Solidity and compatible with any EVM blockchains.
 
-Key Features:
-
-* Create new IOU records on the blockchain
-* Add data to existing IOUs
-* Track IOU events and transactions
-* Webhook and Discord integration for notifications
-* Modular architecture for extensibility
+- IOUStorage Smart contract
+  * Create new IOU smart contract with genesis data which is the hash of contract pdf
+  * Allow backend to update repayment status of IOU contract
+  * A getter function for verifying the checksum of encrypted data both on-chain and off-chain
+- FactoryIOU Smart contract
+  * Manage created IOU smart contract
+  * Event IOU smart contract creation
+  * Event IOU repayment status updated
 
 ### Usage
 
 #### Installation
 
+0. Setup
+
+- Install `Foundry` by following the instructions from [their repository](https://github.com/foundry-rs/foundry#installation).
+- Install `Node.js` version 22 from [official website](https://nodejs.org/en) 
+- Install `yarn` following [`corepack` doc](https://yarnpkg.com/getting-started/install)
+
 1.  Clone the repository:
 
-    ```bash
-    git clone https://github.com/your-username/moneyguard-blc-core.git
-    cd moneyguard-blc-core
-    ```
+```bash
+git clone https://github.com/your-username/moneyguard-sc.git
+cd moneyguard-sc
+```
 2.  Install dependencies:
 
-    ```bash
-    npm install
-    ```
+```bash
+yarn install
+```
+
+In case there is an error with the commands, run `foundryup` and try them again.
+
 3.  Configure environment variables:
 
-    ```bash
-    cp .env.example .env
-    # Edit .env with your configuration
-    ```
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
 #### Commands
 
 ```bash
-# Development
-npm run start:dev
+# Run unit-test
+yarn test:unit
 
-# Production build
-npm run build
-npm run start:prod
+# Run deep test
+yarn test:unit:deep
 
 # Run tests
-npm run test
+yarn test
 
-# Run crawler process
-npm run crawler
+# Format code
+yarn lint:fix
+yarn lint:sol
 
-# Run consumer process
-npm run consumer
+# Code coverage check
+yarn coverage
 
-# Run application signature example
-npm run application-signature-example
+# Build code
+yarn build
+yarn build:optimized
 
-# Run local script
-npm run local
-
-# Lint and format
-npm run lint
-npm run format
-
-# TypeORM migrations
-npm run migration:generate --name=MigrationName
-npm run migration:create --name=MigrationName
-npm run migration:run
-npm run migration:revert
+# Deploy smart contract
+# CMD format: yarn deploy:<chain-identifier>
+# Config the Admin and Operator in `script/Deploy.sol`
+yarn deploy:bsc_testnet
+yarn deploy:bsc
 ```
 
 ### Development
 
-#### System Requirements
-
-* OS: Ubuntu 22.04.4 LTS x86\_64
-* CPU: 2 Core(s)
-* Memory: 4GB
-* Disksize: 80GB
-
 #### Pre-Requisites
 
-* Node.js (20 or higher)
-* npm or yarn
+* Foundry
+* Node.js (22 or higher)
+* yarn 4.7.0
 * BSC node access (local or testnet)
-* TypeScript knowledge
-* NestJS framework familiarity
-* PostgreSQL database
-* RabbitMQ
-* Redis
-
-#### Development Environment
-
-1. Set up your blockchain environment:
-   * Configure RPC URL in `.env`
-   * Set up wallet private key
-   * Deploy required smart contracts
-2.  Install development dependencies:
-
-    ```bash
-    npm install --save-dev
-    ```
+* Solidity and TypeScript knowledge
+* Deployer Wallet
+* Admin Wallet
+* Operator Wallet
 
 #### File Structure
 
 ```
 src/
-├── main.ts
-├── app.module.ts
-├── crawler.ts
-├── consumer.ts
-├── application-signature-example.ts
-├── local.ts
-├── modules/
-│   ├── iou/                # IOU-related functionality (controllers, services, dtos, entities, interfaces)
-│   ├── blockchain/         # Blockchain interaction services
-│   ├── webhook/            # Webhook handling (controllers, services, dtos)
-│   ├── consumer/           # Consumer process logic
-│   ├── crawler/            # Crawler process logic
-│   ├── discord/            # Discord integration (webhook, API)
-│   ├── application/        # Application management (controllers, services, dtos, entities)
-├── shared/                 # Shared utilities, constants, decorators, guards, etc.
-├── external/               # External integrations (e.g., money-guard)
+├── contracts/              # Main smart contracts source code
+├── interfaces/             # Interfaces for smart contracts
+scripts/                    # Deployment scripts
+test/                       # Test files
+├── unit.ts                 # Unit test
+...
 ```
-
-| Directory           | Purpose                          |
-| ------------------- | -------------------------------- |
-| modules/iou         | IOU-related functionality        |
-| modules/blockchain  | Blockchain interaction services  |
-| modules/webhook     | Webhook handling                 |
-| modules/consumer    | Consumer process logic           |
-| modules/crawler     | Crawler process logic            |
-| modules/discord     | Discord integration              |
-| modules/application | Application management           |
-| shared              | Shared utilities and common code |
-| external            | External integrations            |
-| migrations          | Database migrations              |
-| test                | Test files                       |
 
 #### Build
 
 ```bash
-npm run build
-# The build artifacts will be stored in the dist/ directory
+yarn build
+or 
+yarn build:optimized
+# The build artifacts will be stored in the out/ or out-via-ir directory
 ```
 
 #### Deployment
 
 1. Build the application
-2. Set up environment variables
-3.  Start the application:
-
-    ```bash
-    npm run start:prod
-    ```
-
-### API Documentation
-
-API documentation is available at: [http://localhost:3000/swagger](http://localhost:3000/swagger)
-
-### Migration Process
-
-MoneyGuard BLC Core uses TypeORM for database migrations. The configuration is in `ormconfig.ts`.
-
-#### Running Migrations
 
 ```bash
-# Generate a new migration
-npm run migration:generate --name=MigrationName
-
-# Create a new migration
-npm run migration:create --name=MigrationName
-
-# Run migrations
-npm run migration:run
-
-# Revert last migration
-npm run migration:revert
+yarn build
+or 
+yarn build:optimized
 ```
 
-Migrations are stored in the `migrations` directory.
+2. Set up smart contract constructor variables
 
-### Crawler Process
+In `script/Deploy.sol`
+Update the Admin and Operator address following chains
 
-The crawler process monitors blockchain events and indexes them in the database for faster access and querying.
+```javascript
+// BSC Testnet
+address _testnetAdmin = 0xA8a13cF07b9f3AAa1594c43cbEd9a59e7B856cf6;
+address[] memory _testnetOperators = new address[](2);
+_testnetOperators[0] = 0x61108593078f3d033444dBd385aE992560da2d78;
+_testnetOperators[1] = 0xe1bF24F75E73C02C324aDFF24A25357a65D19A3d;
+```
 
-#### Starting the Crawler
+3.  Deploy the smart contract
 
 ```bash
-npm run crawler
-# Or in development mode with watching
-npm run start:dev -- --entryFile=crawler
+# For example, deploy to BSC testnet
+yarn deploy:bsc_testnet
 ```
-
-Configure the crawler in `.env`:
-
-```sh
-# Crawler Configuration
-IOU_FACTORY_CONTRACT_ADDRESS=...
-IOU_FACTORY_CONTRACT_START_BLOCK=...
-IOU_FACTORY_CONTRACT_INCREMENT_BLOCK=...
-IOU_FACTORY_CONTRACT_CHAIN_ID=...
-IOU_OPERATOR_PRIVATE_KEY=...
-READ_RPC_URL=...
-WRITE_RPC_URL=...
-```
-
-### Consumer Process
-
-The consumer process handles asynchronous tasks and event processing.
-
-#### Starting the Consumer
-
-```bash
-npm run consumer
-# Or in development mode with watching
-npm run start:dev -- --entryFile=consumer
-```
-
-Configure queue connections in `.env`:
-
-```sh
-# RabbitMQ Configuration
-RABBITMQ_USER=...
-RABBITMQ_PASS=...
-RABBITMQ_PORT=...
-RABBITMQ_MANAGEMENT_PORT=...
-RABBITMQ_URLS=...
-```
-
-### Webhook
-
-The Webhook module handles **incoming webhooks** from Money Guard Backend system, specifically for MoneyGuard IOU events. It validates, parses, and emits these events to RabbitMQ for further processing by internal consumers. Then it sends webhooks to Money Guard Backend system to sync up blockchain data
-
-#### Purpose
-
-* Receives POST requests at `/webhook/money-guard`.
-* Supports two event types: `moneyGuard.createIOU` and `moneyGuard.updateIOUData`.
-* Validates and transforms the payload.
-* Emits the event to RabbitMQ for asynchronous processing.
-* Send webhook to Money Guard Backend to sync up blockchain data
-
-#### Supported Event Types
-
-* `moneyGuard.createIOU`: Create a new IOU record.
-* `moneyGuard.updateIOUData`: Update IOU data (only `CANCELLED` or `COMPLETED` event types allowed).
-
-#### Example Payload
-
-```json
-{
-  "type": "moneyGuard.createIOU",
-  "timestamp": 1710000000,
-  "data": {
-    "agreement_id": "abc123",
-    "amount": 1000,
-    "interest_rate": 5,
-    "interest_payment_date": 1710000000,
-    "repayment_start_date": "2024-06-01T00:00:00.000Z",
-    "repayment_end_date": "2024-12-01T00:00:00.000Z",
-    "pdf_file_url": "https://example.com/file.pdf",
-    "creditor_id": "user1",
-    "debtor_id": "user2"
-  }
-}
-```
-
-#### Configuration
-
-```bash
-MONEY_GUARD_WEBHOOK_URL=http://example.com
-```
-
-#### Usage
-
-* **Incoming:** External systems POST to `/webhook/money-guard` with a valid payload.
-* **Processing:** The backend validates, transforms, and emits the event to RabbitMQ for further processing.
-
-For more details, see the code in `src/modules/webhook/` and the API documentation.
