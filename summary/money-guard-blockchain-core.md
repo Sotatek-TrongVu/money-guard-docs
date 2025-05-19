@@ -1,12 +1,6 @@
----
-description: >-
-  A blockchain-based IOU management system that allows users to create, manage,
-  and track financial obligations securely on the blockchain.
----
+# Money Guard Blockchain Core
 
-# Money Guard Blockchain
-
-About
+### About
 
 MoneyGuard BLC Core is a NestJS-based backend service that interfaces with blockchain smart contracts to manage IOU records. It provides a secure and transparent way to create, update, and manage financial obligations between parties using blockchain technology.
 

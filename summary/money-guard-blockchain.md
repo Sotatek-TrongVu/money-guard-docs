@@ -4,17 +4,17 @@ description: >-
   and track financial obligations securely on the blockchain.
 ---
 
-# Money Guard Blockchain
+# Money Guard Blockchain Contract
 
-About
+### About
 
 MoneyGuard Smart Contract is composed using Solidity and compatible with any EVM blockchains.
 
-- IOUStorage Smart contract
+* IOUStorage Smart contract
   * Create new IOU smart contract with genesis data which is the hash of contract pdf
   * Allow backend to update repayment status of IOU contract
   * A getter function for verifying the checksum of encrypted data both on-chain and off-chain
-- FactoryIOU Smart contract
+* FactoryIOU Smart contract
   * Manage created IOU smart contract
   * Event IOU smart contract creation
   * Event IOU repayment status updated
@@ -23,19 +23,20 @@ MoneyGuard Smart Contract is composed using Solidity and compatible with any EVM
 
 #### Installation
 
-0. Setup
+1. Setup
 
-- Install `Foundry` by following the instructions from [their repository](https://github.com/foundry-rs/foundry#installation).
-- Install `Node.js` version 22 from [official website](https://nodejs.org/en) 
-- Install `yarn` following [`corepack` doc](https://yarnpkg.com/getting-started/install)
+* Install `Foundry` by following the instructions from [their repository](https://github.com/foundry-rs/foundry#installation).
+* Install `Node.js` version 22 from [official website](https://nodejs.org/en)
+* Install `yarn` following [`corepack` doc](https://yarnpkg.com/getting-started/install)
 
-1.  Clone the repository:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/moneyguard-sc.git
 cd moneyguard-sc
 ```
-2.  Install dependencies:
+
+2. Install dependencies:
 
 ```bash
 yarn install
@@ -43,7 +44,7 @@ yarn install
 
 In case there is an error with the commands, run `foundryup` and try them again.
 
-3.  Configure environment variables:
+3. Configure environment variables:
 
 ```bash
 cp .env.example .env
@@ -126,7 +127,7 @@ yarn build:optimized
 
 2. Set up smart contract constructor variables
 
-In `script/Deploy.sol`
+In `script/Deploy.sol`\
 Update the Admin and Operator address following chains
 
 ```javascript
@@ -137,7 +138,7 @@ _testnetOperators[0] = 0x61108593078f3d033444dBd385aE992560da2d78;
 _testnetOperators[1] = 0xe1bF24F75E73C02C324aDFF24A25357a65D19A3d;
 ```
 
-3.  Deploy the smart contract
+3. Deploy the smart contract
 
 ```bash
 # For example, deploy to BSC testnet
