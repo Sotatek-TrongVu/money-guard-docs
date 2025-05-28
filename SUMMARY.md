@@ -6,3 +6,4 @@
   * [Money Guard Blockchain Core](summary/money-guard-blockchain-core.md)
   * [Money Guard Backend](summary/money-guard-backend.md)
   * [User Acceptance Testing (UAT)](summary/user-acceptance-testing-uat.md)
+  * [Guide: How to retrieve IOU contract data](summary/how-to-retrieve-iou-contract-data.md)
