@@ -35,7 +35,7 @@ Key Features:
     ```
 
 4. Generate application credentials:
-Go to https://www.uuidgenerator.net/ to generate a random UUID for `MONEY_GUARD_APPLICATION_ID` then run the following command to generate the application credentials:
+Go to [https://www.uuidgenerator.net/version4](https://www.uuidgenerator.net/version4) to generate a random UUID for `MONEY_GUARD_APPLICATION_ID` then run the following command to generate the application credentials:
    ```bash
    npm run generate-money-guard-application
    ```
@@ -63,8 +63,8 @@ npm run consumer
 # Run application signature example
 npm run application-signature-example
 
-# Run local script
-npm run local
+# Run PDF checksum test
+npm run test-pdf-checksum
 
 # Generate Money Guard application with keys
 npm run generate-money-guard-application
