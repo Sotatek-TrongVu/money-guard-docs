@@ -35,11 +35,11 @@ Key Features:
     ```
 
 4. Generate application credentials:
-
+Go to https://www.uuidgenerator.net/ to generate a random UUID for `MONEY_GUARD_APPLICATION_ID` then run the following command to generate the application credentials:
    ```bash
    npm run generate-money-guard-application
-   # Copy the generated MONEY_GUARD_APPLICATION_ID to your .env file
    ```
+More details, see [Generate Money Guard Application Script](generate-money-guard-application.md)
 
 #### Commands
 
@@ -283,7 +283,7 @@ MONEY_GUARD_WEBHOOK_URL=http://example.com
 MONEY_GUARD_APPLICATION_ID=<random uuid>
 ```
 
-> **Note:** To generate the `MONEY_GUARD_APPLICATION_ID`, use the [Generate Money Guard Application Script](generate-money-guard-application.md).
+> **Note:** Need to generate an application ID by use the [Generate Money Guard Application Script](generate-money-guard-application.md).
 
 #### Usage
 
