@@ -34,6 +34,13 @@ Key Features:
     # Edit .env with your configuration
     ```
 
+4. Generate application credentials:
+
+   ```bash
+   npm run generate-money-guard-application
+   # Copy the generated MONEY_GUARD_APPLICATION_ID to your .env file
+   ```
+
 #### Commands
 
 ```bash
@@ -58,6 +65,9 @@ npm run application-signature-example
 
 # Run local script
 npm run local
+
+# Generate Money Guard application with keys
+npm run generate-money-guard-application
 
 # Lint and format
 npm run lint
@@ -270,7 +280,10 @@ The Webhook module handles **incoming webhooks** from Money Guard Backend system
 
 ```bash
 MONEY_GUARD_WEBHOOK_URL=http://example.com
+MONEY_GUARD_APPLICATION_ID=<random uuid>
 ```
+
+> **Note:** To generate the `MONEY_GUARD_APPLICATION_ID`, use the [Generate Money Guard Application Script](generate-money-guard-application.md).
 
 #### Usage
 
