@@ -281,7 +281,7 @@ MONEY_GUARD_WEBHOOK_URL=http://example.com
 MONEY_GUARD_APPLICATION_ID=<random uuid>
 ```
 
-> **Note:** Need to generate an application ID by use the [Generate Money Guard Application Script](generate-money-guard-application.md).
+> **Note:** Need to generate an application by `MONEY_GUARD_APPLICATION_ID` use the [Generate Money Guard Application Script](generate-money-guard-application.md).
 
 #### Usage
 
