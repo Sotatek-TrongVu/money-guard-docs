@@ -120,8 +120,6 @@ src/
 ├── app.module.ts
 ├── crawler.ts
 ├── consumer.ts
-├── application-signature-example.ts
-├── local.ts
 ├── modules/
 │   ├── iou/                # IOU-related functionality (controllers, services, dtos, entities, interfaces)
 │   ├── blockchain/         # Blockchain interaction services
